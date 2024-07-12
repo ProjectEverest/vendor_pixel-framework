@@ -16,7 +16,7 @@
 
 package com.google.android.systemui.assist;
 
-import static org.lineageos.internal.util.DeviceKeysConstants.*;
+import static com.android.internal.util.everest.DeviceKeysConstants.*;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -25,7 +25,7 @@ import com.android.systemui.dagger.SysUISingleton;
 
 import javax.inject.Inject;
 
-import lineageos.providers.LineageSettings;
+import android.provider.Settings;
 
 @SysUISingleton
 public class OpaEnabledSettings {
@@ -41,12 +41,12 @@ public class OpaEnabledSettings {
         mContentResolver = context.getContentResolver();
 
         mHomeLongPressAction = Action.fromIntSafe(mContext.getResources().getInteger(
-                org.lineageos.platform.internal.R.integer.config_longPressOnHomeBehavior));
+                com.android.internal.R.integer.config_longPressOnHomeBehavior));
         if (mHomeLongPressAction.ordinal() > Action.SLEEP.ordinal()) {
             mHomeLongPressAction = Action.NOTHING;
         }
         mHomeLongPressAction = Action.fromSettings(mContentResolver,
-                LineageSettings.System.KEY_HOME_LONG_PRESS_ACTION,
+                Settings.System.KEY_HOME_LONG_PRESS_ACTION,
                 mHomeLongPressAction);
     }
 
@@ -70,7 +70,7 @@ public class OpaEnabledSettings {
 
     public boolean isLongPressHomeEnabled() {
         mHomeLongPressAction = Action.fromSettings(mContentResolver,
-                LineageSettings.System.KEY_HOME_LONG_PRESS_ACTION,
+                Settings.System.KEY_HOME_LONG_PRESS_ACTION,
                 mHomeLongPressAction);
         return mHomeLongPressAction == Action.SEARCH;
     }
